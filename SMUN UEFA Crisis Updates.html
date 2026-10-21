@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crisis Updates · SMUN UEFA 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --black:#000;
+  --panel:#0c0907;
+  --gold:#d9ae4f;
+  --gold-soft:#a98433;
+  --red:#d3241b;
+  --red-deep:#7c120d;
+  --green:#7c9a2c;
+  --cream:#efe3c4;
+  --muted:#b9a883;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--black);color:var(--cream);font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;line-height:1.65}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(211,36,27,.22),transparent 70%)}
+main{max-width:640px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+h1,h2,.btn-title{font-family:'Cinzel',Georgia,serif}
+.crest{display:block;margin:0 auto 1rem;width:92px;height:92px}
+h1{text-align:center;font-size:clamp(1.9rem,7vw,2.8rem);font-weight:700;letter-spacing:.08em;margin:0;color:var(--gold)}
+.sub{text-align:center;color:var(--muted);margin:.4rem 0 0;font-size:1.1rem}
+.rule{height:1px;margin:1.8rem auto;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent)}
+.list{display:flex;flex-direction:column;gap:.9rem}
+.btn{display:flex;justify-content:space-between;align-items:center;gap:1rem;width:100%;padding:1.1rem 1.3rem;background:var(--panel);color:var(--cream);border:1px solid var(--gold-soft);border-left:5px solid var(--red);border-radius:6px;cursor:pointer;text-align:left;font:inherit;transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{background:#1a110c;border-color:var(--gold);transform:translateX(4px)}
+.btn:focus-visible,.back:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.btn-title{font-weight:700;font-size:1.05rem;letter-spacing:.05em;color:var(--gold)}
+.btn-date{color:var(--muted);font-size:1.05rem;white-space:nowrap}
+.back{display:inline-block;margin-bottom:1.4rem;padding:.55rem 1.1rem;background:transparent;color:var(--gold);border:1px solid var(--gold-soft);border-radius:999px;cursor:pointer;font-family:'Cinzel',Georgia,serif;font-size:.85rem;letter-spacing:.08em}
+.back:hover{background:var(--gold);color:#000}
+.photo {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--gold-soft);
+    overflow: hidden;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+}
+.ph{color:var(--muted);text-align:center;font-size:1rem}
+.ph svg{width:56px;height:56px;display:block;margin:0 auto .4rem}
+h2{font-size:clamp(1.4rem,5vw,1.9rem);color:var(--gold);margin:1.5rem 0 .2rem;letter-spacing:.04em}
+.date{color:var(--red);font-weight:600;margin:0 0 1rem}
+.body p{margin:0 0 1rem}
+footer{text-align:center;color:var(--gold-soft);font-size:.95rem;margin-top:3rem}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <section id="home">
+    <svg class="crest" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="47" fill="none" stroke="#a98433" stroke-width="2"/>
+      <circle cx="50" cy="50" r="27" fill="#d3241b"/>
+      <g fill="#000"><rect x="43" y="34" width="3" height="30"/><rect x="48.5" y="30" width="3" height="34"/><rect x="54" y="34" width="3" height="30"/></g>
+    </svg>
+    <h1>Crisis Updates</h1>
+    <p class="sub">SMUN UEFA 2026</p>
+    <div class="rule"></div>
+    <div class="list" id="list"></div>
+    <footer>SMUN 2026</footer>
+  </section>
+
+  <section id="detail" hidden>
+    <button class="back" id="back">&larr; Back</button>
+    <div class="photo" id="photo"></div>
+    <h2 id="d-title"></h2>
+    <p class="date" id="d-date"></p>
+    <div class="body" id="d-body"></div>
+  </section>
+</main>
+
+<script>
+/* ---- EDIT HERE: one entry per crisis update. Add a photo by setting image to a data: URI. ---- */
+const UPDATES = [
+  { id:"u1", title:"Crisis Update 1", date:"20 Oct 2026", image:"Arsenal.png",
+    text:["The Executive Board received a bulletin report earlier this morning. This is an incredibly important development for the dynamics of our conference. This is also a reminder that events do not wait for the first session, and that this committee does not wait for the resolution of religious festivals. We suggest you read it carefully and ponder about your stance."] },
+  { id:"u2", title:"Crisis Update 2", date:"21 Oct 2026", image:"Italy.png",
+    text:["Earlier this morning, the Executive Board received an unmarked package with only an image (a scan of which has been shared) with the words, and we quote, ‘Beware of Who You Trust’. It is rather over dramatised, but we expect you to take this seriously. The picture portrays Giuseppe Marotta (left) and Claudio Lotito (right), with the timestamp as 20 October, 21:00 hours. The nature and origin of this image is unknown, but the timing is incredible — why would the owners of SS Lazio and Inter Milan meet on the day that Arsenal’s owners declared bankruptcy?"] },
+];
+/* ------------------------------------------------------------------------------------------- */
+
+const home=document.getElementById('home'), detail=document.getElementById('detail');
+const list=document.getElementById('list');
+
+UPDATES.forEach(u=>{
+  const b=document.createElement('button');
+  b.className='btn';
+  const t=document.createElement('span'); t.className='btn-title'; t.textContent=u.title;
+  const d=document.createElement('span'); d.className='btn-date'; d.textContent=u.date;
+  b.append(t,d);
+  b.addEventListener('click',()=>{ location.hash=u.id; });
+  list.appendChild(b);
+});
+
+function show(){
+  const id=location.hash.replace('#','');
+  const u=UPDATES.find(x=>x.id===id);
+  if(!u){ detail.hidden=true; home.hidden=false; window.scrollTo(0,0); return; }
+  const ph=document.getElementById('photo'); ph.textContent='';
+  if(u.image){ const i=document.createElement('img'); i.src=u.image; i.alt=u.title+' photo'; ph.appendChild(i); }
+  else { ph.innerHTML='<div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#a98433" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-9 7"/></svg>Photo goes here</div>'; }
+  document.getElementById('d-title').textContent=u.title;
+  document.getElementById('d-date').textContent=u.date;
+  const body=document.getElementById('d-body'); body.textContent='';
+  u.text.forEach(p=>{ const el=document.createElement('p'); el.textContent=p; body.appendChild(el); });
+  home.hidden=true; detail.hidden=false; window.scrollTo(0,0);
+}
+document.getElementById('back').addEventListener('click',()=>{ location.hash=''; show(); });
+window.addEventListener('hashchange',show);
+show();
+</script>
+</body>
+</html>
