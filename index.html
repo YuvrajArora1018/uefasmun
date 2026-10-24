@@ -99,6 +99,15 @@ const UPDATES = [
     text:["The Executive Board received a bulletin report earlier this morning. This is an incredibly important development for the dynamics of our conference. This is also a reminder that events do not wait for the first session, and that this committee does not wait for the resolution of religious festivals. We suggest you read it carefully and ponder about your stance."] },
   { id:"u2", title:"Crisis Update 2", date:"21 Oct 2026", image:"Italy.png",
     text:["Earlier this morning, the Executive Board received an unmarked package with only an image (a scan of which has been shared) with the words, and we quote, ‘Beware of Who You Trust’. It is rather over dramatised, but we expect you to take this seriously. The picture portrays Giuseppe Marotta (left) and Claudio Lotito (right), with the timestamp as 20 October, 21:00 hours. The nature and origin of this image is unknown, but the timing is incredible — why would the owners of SS Lazio and Inter Milan meet on the day that Arsenal’s owners declared bankruptcy?"] },
+    {
+  id: "u3",
+  title: "Crisis Update 3",
+  date: "22 Oct 2026",
+  video: "CrisisUpdate3.mp4",
+  text: [
+    "The UEFA press office has received a recording of a closed-door bidding session for control of Arsenal Football Club from Stan Kroenke of KSE himself. Three parties are in the room: Sheikh Mohammed bin Rashid Al Maktoum, Sergey Galitsky, and a representative of Blackstone. Stan Kroenke is present throughout. The final figure and the winning bidder are on the tape."
+  ]
+}
 ];
 /* ------------------------------------------------------------------------------------------- */
 
@@ -115,19 +124,75 @@ UPDATES.forEach(u=>{
   list.appendChild(b);
 });
 
-function show(){
-  const id=location.hash.replace('#','');
-  const u=UPDATES.find(x=>x.id===id);
-  if(!u){ detail.hidden=true; home.hidden=false; window.scrollTo(0,0); return; }
-  const ph=document.getElementById('photo'); ph.textContent='';
-  if(u.image){ const i=document.createElement('img'); i.src=u.image; i.alt=u.title+' photo'; ph.appendChild(i); }
-  else { ph.innerHTML='<div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#a98433" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-9 7"/></svg>Photo goes here</div>'; }
-  document.getElementById('d-title').textContent=u.title;
-  document.getElementById('d-date').textContent=u.date;
-  const body=document.getElementById('d-body'); body.textContent='';
-  u.text.forEach(p=>{ const el=document.createElement('p'); el.textContent=p; body.appendChild(el); });
-  home.hidden=true; detail.hidden=false; window.scrollTo(0,0);
+
+function show() {
+  const id = location.hash.replace('#', '');
+  const u = UPDATES.find(x => x.id === id);
+
+  if (!u) {
+    detail.hidden = true;
+    home.hidden = false;
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  const ph = document.getElementById('photo');
+  ph.textContent = '';
+
+  if (u.video) {
+    const video = document.createElement('video');
+    video.src = u.video;
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.style.display = 'block';
+    video.style.width = '100%';
+    video.style.maxHeight = '75vh';
+    video.style.objectFit = 'contain';
+    ph.appendChild(video);
+  } else if (u.image) {
+    const img = document.createElement('img');
+    img.src = u.image;
+    img.alt = u.title + ' photo';
+    ph.appendChild(img);
+  } else {
+    ph.innerHTML = `
+      <div class="ph">
+        <svg viewBox="0 0 24 24" fill="none"
+          stroke="#a98433" stroke-width="1.5">
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <circle cx="9" cy="11" r="2"/>
+          <path d="M21 17l-5-5-9 7"/>
+        </svg>
+        Photo goes here
+      </div>`;
+  }
+
+  document.getElementById('d-title').textContent = u.title;
+  document.getElementById('d-date').textContent = u.date;
+
+  const body = document.getElementById('d-body');
+  body.textContent = '';
+
+  u.text.forEach(p => {
+    const el = document.createElement('p');
+    el.textContent = p;
+    body.appendChild(el);
+  });
+
+  home.hidden = true;
+  detail.hidden = false;
+  window.scrollTo(0, 0);
 }
+
+document.getElementById('back').addEventListener('click', () => {
+  location.hash = '';
+  show();
+});
+
+window.addEventListener('hashchange', show);
+show();
+
 document.getElementById('back').addEventListener('click',()=>{ location.hash=''; show(); });
 window.addEventListener('hashchange',show);
 show();
