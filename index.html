@@ -107,6 +107,24 @@ const UPDATES = [
   text: [
     "The UEFA press office has received a recording of a closed-door bidding session for control of Arsenal Football Club from Stan Kroenke of KSE himself. Three parties are in the room: Sheikh Mohammed bin Rashid Al Maktoum, Sergey Galitsky, and a representative of Blackstone. Stan Kroenke is present throughout. The final figure and the winning bidder are on the tape."
   ]
+},
+  {
+  id: "u4",
+  title: "Crisis Update 4",
+  date: "25 Oct 2026",
+  image: "Bayern Munich.jpeg",
+  text: [
+    "The Executive Board has received communication from the head of Fußball-Club Bayern München e.V.’s Südkurve (Bayern's Ultras). It says: “Herbert, du hast unseren wunderschönen Verein, den Stolz Bayerns, in eine Goldgrube für deutsche Konzerne verwandelt. Wir wissen, dass du die 50+1-Regelung schon immer abschaffen wolltest. Wir wissen, dass du mit Inter Mailand, Liverpool und vielleicht sogar mit Arsenal und Manchester City zusammenarbeitest. Wärst du nicht an die 50+1-Regelung gebunden, wüssten wir, dass du uns im Stich lassen, die Ticketpreise in die Höhe treiben und Bayerns Seele an die Araber verkaufen würdest. Als Eigentümer des FC Bayern geben wir dir unmissverständlich klar: Du hast 24 Stunden Zeit, jegliche Zusammenarbeit mit Vereinen, die nicht in Fanbesitz sind, zu beenden und dich als Vorreiter für fanbasierte Vereine zu engagieren. Andernfalls berufen wir eine Versammlung ein und schließen dich aus. Vergiss das Ultimatum nicht. Vergiss nicht: Nichts kann zwischen die Fans und den Verein kommen, schon gar nicht ein Kapitalist wie du.” Translation: “Herbert, you have turned our beautiful club, the pride of Bavaria, into a cash cow for German Corporations to exploit. We know that you have always wanted the 50+1 to go. We know you're working with Inter, Liverpool, and who knows maybe even Arsenal and City. If you weren't under the 50+1, we know you would ditch us, make tickets expensive and sell Bayern's soul to the Arabs. As the owners of FCB, let us make it clear, we are giving you 24 hours to stop any collaboration with non fan-owned clubs, and work as a pioneer for fan-owned clubs. If not, we willl call a meeting and expel you. Remember the ultimatum. Remember that nothing can come between the fans and the club, especially not a capitalist like you.” "
+  ]
+},
+  {
+  id: "u5",
+  title: "Crisis Update 4.5",
+  date: "25 Oct 2026",
+  pdf: "BayernOfficialStatement.pdf",
+  text: [
+    "Bayern Munich's official statement released in response to Crisis Update 4"
+  ]
 }
 ];
 /* ------------------------------------------------------------------------------------------- */
@@ -139,35 +157,49 @@ function show() {
   const ph = document.getElementById('photo');
   ph.textContent = '';
 
-  if (u.video) {
-    const video = document.createElement('video');
-    video.src = u.video;
-    video.controls = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.style.display = 'block';
-    video.style.width = '100%';
-    video.style.maxHeight = '75vh';
-    video.style.objectFit = 'contain';
-    ph.appendChild(video);
-  } else if (u.image) {
-    const img = document.createElement('img');
-    img.src = u.image;
-    img.alt = u.title + ' photo';
-    ph.appendChild(img);
-  } else {
-    ph.innerHTML = `
-      <div class="ph">
-        <svg viewBox="0 0 24 24" fill="none"
-          stroke="#a98433" stroke-width="1.5">
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <circle cx="9" cy="11" r="2"/>
-          <path d="M21 17l-5-5-9 7"/>
-        </svg>
-        Photo goes here
-      </div>`;
-  }
+  if (u.pdf) {
+  const iframe = document.createElement('iframe');
+  iframe.src = u.pdf;
+  iframe.title = u.title + ' PDF';
+  iframe.style.display = 'block';
+  iframe.style.width = '100%';
+  iframe.style.height = '75vh';
+  iframe.style.border = '0';
+  iframe.style.background = '#fff';
 
+  ph.appendChild(iframe);
+
+} else if (u.video) {
+  const video = document.createElement('video');
+  video.src = u.video;
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = 'metadata';
+  video.style.display = 'block';
+  video.style.width = '100%';
+  video.style.maxHeight = '75vh';
+  video.style.objectFit = 'contain';
+
+  ph.appendChild(video);
+
+} else if (u.image) {
+  const img = document.createElement('img');
+  img.src = u.image;
+  img.alt = u.title + ' photo';
+  ph.appendChild(img);
+
+} else {
+  ph.innerHTML = `
+    <div class="ph">
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="#a98433" stroke-width="1.5">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <circle cx="9" cy="11" r="2"/>
+        <path d="M21 17l-5-5-9 7"/>
+      </svg>
+      Photo goes here
+    </div>`;
+}
   document.getElementById('d-title').textContent = u.title;
   document.getElementById('d-date').textContent = u.date;
 
